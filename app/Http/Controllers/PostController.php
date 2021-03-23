@@ -30,6 +30,9 @@ class PostController extends Controller
 
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:3',
+            'forumid' => 'required',
+            'content' => 'required'
+
         ]);
 
         if ($validator->fails()) {
@@ -41,7 +44,9 @@ class PostController extends Controller
 
         Post::create([
             'title' => $request->title,
-            'slug' => \Str::slug($request->title)
+            'slug' => \Str::slug($request->title),
+            'section' => $request->forumid,
+            'content' => $request->content
         ]);
 
         return redirect('/posts');
